@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_075715) do
+ActiveRecord::Schema.define(version: 2021_03_27_095704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "albums", force: :cascade do |t|
+    t.string "title"
+    t.string "release_date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_albums_on_user_id"
+  end
+
+  create_table "sides", force: :cascade do |t|
+    t.string "name"
+    t.bigint "album_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["album_id"], name: "index_sides_on_album_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.integer "number"
+    t.string "title"
+    t.string "length"
+    t.bigint "side_id", null: false
+    t.bigint "album_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["album_id"], name: "index_tracks_on_album_id"
+    t.index ["side_id"], name: "index_tracks_on_side_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +56,8 @@ ActiveRecord::Schema.define(version: 2021_03_27_075715) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "albums", "users"
+  add_foreign_key "sides", "albums"
+  add_foreign_key "tracks", "albums"
+  add_foreign_key "tracks", "sides"
 end
