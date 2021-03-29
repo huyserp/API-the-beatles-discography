@@ -2,10 +2,11 @@ require 'open-uri'
 require 'nokogiri'
 
 User.destroy_all
+
 puts "Removed all users, start fresh"
 
-ringo = User.create(email: 'ringo@beatles.com', password: '123456')
-puts "Our user is Ringo"
+ringo = User.create!(email: 'ringo@beatles.com', password: '123456')
+puts "Our user is #{ringo.email}"
 
 ################################################
 ##### Scrape for all beatles studio albums #####
@@ -41,12 +42,15 @@ album_release_dates = scrape_release_dates(html_doc)
 
 # merge the title with its release date
 album_data = album_titles.zip(album_release_dates)
+album_data.delete_at(6)
+album_data.delete_at(7)
+
 
 # 'magical mystery tour' and 'the white album' each have 4 sides.
 # must scrape songs differently
 magical_white = []
 2.times do
-  magical_white << album_data.delete_at(17)
+  magical_white << album_data.delete_at(15)
 end
 
 #####################################################
@@ -108,7 +112,7 @@ magical_white.each do |album|
   end
   puts "------------------------------------------------------------------"
   puts "#{album_record.title} was created on #{album_record.release_date}."
-  puts "It was added to the database by #{album_record.user}."
+  puts "It was added to the database by #{album_record.user.email}."
   puts "#{album_record.title} has #{album_record.tracks.count} songs on #{album_record.sides.count} different sides"
   album_record.sides.each do |side|
     puts "#{side.name} has the songs:"
@@ -133,6 +137,7 @@ album_data.each do |album|
     # look at each table, and split it into its rows, then map each row to only its content.
     sides << element.search('tr').map { |child| child.text.strip }
   end
+
   sides.each_with_index do |side, index|
     # we dont care about the headers(first element) or total time(last element)
     side.pop
@@ -158,7 +163,7 @@ album_data.each do |album|
   end
   puts "------------------------------------------------------------------"
   puts "#{album_record.title} was created on #{album_record.release_date}."
-  puts "It was added to the database by #{album_record.user}."
+  puts "It was added to the database by #{album_record.user.email}."
   puts "#{album_record.title} has #{album_record.tracks.count} songs on #{album_record.sides.count} different sides"
   album_record.sides.each do |side|
     puts "#{side.name} has the songs:"
