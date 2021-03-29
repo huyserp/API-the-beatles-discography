@@ -5,6 +5,6 @@ class Track < ApplicationRecord
   validates :number, presence: true
   validates :title, presence: true
   validates :album_id, uniqueness: { scope: :title }
-  validates :album_id, uniqueness: { scope: :number }
+  validates :side_id, uniqueness: { scope: :number }
   validates :length, presence: true
 end
