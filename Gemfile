@@ -29,6 +29,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # For authentication
+gem 'simple_token_authentication'
 gem 'devise'
 
 # For Authorization
