@@ -8,4 +8,8 @@ class AlbumPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def create?
+    !user.nil?
+  end
 end
