@@ -1,1 +1,18 @@
 // Specific CSS for your home-page
+.url {
+  padding: .5em;
+  background-color: rgba(158, 210, 255, .3);
+  border: 1px solid rgba(158, 210, 255, .9);
+  border-radius: 4px;
+}
+
+.title, .info {
+  margin-top: 2em;
+}
+
+#apikey {
+  padding: .5em;
+  background-color: rgba(47, 152, 55, .3);
+  border: 1px solid rgba(47, 152, 55, .9);
+  border-radius: 4px;
+}
