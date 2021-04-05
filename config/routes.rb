@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :albums, only: [ :index, :show, :create, :update, :destroy ]
+      resources :albums, only: [ :index, :show, :create, :update, :destroy ] do
+        resources :sides, only: [ :create, :destroy ]
+      end
     end
   end
 
