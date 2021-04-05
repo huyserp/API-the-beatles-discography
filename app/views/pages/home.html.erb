@@ -8,7 +8,16 @@
       <%= link_to 'Sign Up', new_user_registration_path  %>
       to have full access.
     </p>
-    <p>Users can add albums and remove those which they've added.</p>
+    <p>Anyone can fetch and use all data.</p>
+    <p>Users can:</p>
+    <ul>
+      <li><p>add and update albums</p></li>
+      <li><p>remove albums which they've added</p></li>
+      <li><p>add and remove sides to the albums which they've added</p></li>
+      <li><p>add and update tracks per side for albums they've added</p></li>
+      <li><p>remove tracks which they've added</p></li>
+
+    </ul>
   <% else %>
     <p>hello <%= current_user.email.split('@').first %>,
       your API Key is:</p>
@@ -22,16 +31,21 @@
   <h3>Information</h3>
   <p>This API is a RESTful web service to obtain basic album data of The Beatles studio albums.</p>
   <ul>
-    <li><p>includes all tracks with respective track number and time length per album side.</p></li>
-    <li><p>JSON response.</p></li>
+    <li><p>includes all tracks with respective track number and time length per album side</p></li>
+    <li><p>JSON response</p></li>
   </ul>
 
 
   <h3>Usage</h3>
   <p>Send all data requests to:</p>
   <p class='url'>https://beatles-discography.herokuapp.com/api/v1/albums/</p>
-  <p>for details on a specific album, include album id at end of URL</p>
+  <p>For details on a specific album, include album id at end of URL</p>
   <p class='url'>https://beatles-discography.herokuapp.com/api/v1/albums/37</p>
   <p>-<em>this will get you "Abby Road"</em></p>
+  <p>To add sides to your newly created album, make requests to (EXAMPLE):</p>
+  <p class="url">http://localhost:3000/api/v1/albums/68/sides</p>
+  <p>To add tracks to their respective sides, make requests to (EXAMPLE):</p>
+  <p class="url">http://localhost:3000/api/v1/albums/68/sides/145/tracks</p>
+   <p>-<em>this will get you "A Hard Day's Night" / side 1</em></p>
 </div>
 
