@@ -21,7 +21,7 @@ class Api::V1::AlbumsController < Api::V1::BaseController
   end
 
   def update
-    if @album = Album.update(album_params)
+    if @album.update(album_params)
       render :show
     else
       render_error
