@@ -1,7 +1,7 @@
 class AlbumPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.all.order(release_date: :asc)
     end
   end
 
