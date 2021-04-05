@@ -1,6 +1,6 @@
 class Api::V1::AlbumsController < Api::V1::BaseController
   acts_as_token_authentication_handler_for User, except: [ :index, :show ]
-  before_action :find_album, only: [ :show, :destroy ]
+  before_action :find_album, only: [ :show, :update, :destroy ]
 
   def index
     @albums = policy_scope(Album)
@@ -15,6 +15,14 @@ class Api::V1::AlbumsController < Api::V1::BaseController
     authorize @album
     if @album.save
       render :show, status: :created
+    else
+      render_error
+    end
+  end
+
+  def update
+    if @album = Album.update(album_params)
+      render :show
     else
       render_error
     end

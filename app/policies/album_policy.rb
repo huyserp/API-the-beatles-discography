@@ -9,11 +9,15 @@ class AlbumPolicy < ApplicationPolicy
     true
   end
 
+  def update?
+    record.user == user
+  end
+
   def create?
     !user.nil?
   end
 
   def destroy?
-    record.user == user
+    update?
   end
 end
